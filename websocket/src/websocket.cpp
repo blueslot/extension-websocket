@@ -721,7 +721,6 @@ static dmExtension::Result OnUpdate(dmExtension::Params* params)
                 continue;
             }
 
-            dmSocket::SetNoDelay(conn->m_Socket, true);
             // Don't go lower than 1000 since some platforms might not have that good precision
             dmSocket::SetReceiveTimeout(conn->m_Socket, 1000);
             if (conn->m_SSLSocket)
@@ -729,6 +728,7 @@ static dmExtension::Result OnUpdate(dmExtension::Params* params)
 
             dmSocket::SetBlocking(conn->m_Socket, false);
 #endif
+            dmSocket::SetNoDelay(conn->m_Socket, true);
             SetState(conn, STATE_CONNECTED);
             HandleCallback(conn, EVENT_CONNECTED, 0, 0);
         }
